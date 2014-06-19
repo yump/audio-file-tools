@@ -23,8 +23,7 @@ musdir="$HOME/Music/main"
 datatmp=$(mktemp)
 
 #get bitrate information.  Format is <bitrate> <filename>.
-#find "$musdir" -type f -iname '*.mp3' -exec ./bitrate.py "{}" + >$datatmp
-cp bitrates.txt $datatmp
+find "$musdir" -type f -iname '*.mp3' -exec ./bitrate.py "{}" + >$datatmp
 
 #scale for gnuplot's smoothing functions
 scalefactor=$(calc -p 1 / $(wc -l <$datatmp) | sed 's/~//')
