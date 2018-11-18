@@ -61,13 +61,12 @@ def can_transcode(filename):
 
 def do_transcode(filename, bitrate):
     newname = re.sub("\.[^.]+$",".opus",filename)
-    ffmpeg_command = """
-    ffmpeg
-    -i {ifile}
-    -c:a opus
-    -b:a {br}
-    {ofile}
-    """.format(ifile=filename, br=bitrate, ofile=newname).split()
+    ffmpeg_command = [
+        "ffmpeg",
+        "-i", "{}".format(filename),
+        "-c:a", "libopus",
+        "-b:a", "{}".format(bitrate),
+        "{}".format(newname)]
     subp.check_call(ffmpeg_command)
     os.remove(filename)
 
